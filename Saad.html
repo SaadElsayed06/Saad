@@ -1,0 +1,1275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Saad | Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* 
+  =======================
+  Base styles
+  =======================
+*/
+        :root {
+            --background: #f8f9fa;
+            --foreground: #0f172a;
+            --card: #ffffff;
+            --card-foreground: #0f172a;
+            --primary: #4b84d3;
+            --primary-foreground: #f8f9fa;
+            --secondary: #f1f5f9;
+            --secondary-foreground: #0f172a;
+            --muted: #f1f5f9;
+            --muted-foreground: #64748b;
+            --accent: #3b82f6;
+            --accent-foreground: #0f172a;
+            --destructive: #ef4444;
+            --destructive-foreground: #f8f9fa;
+            --border: #e2e8f0;
+            --input: #e2e8f0;
+            --ring: #3b82f6;
+            --radius: 0.5rem;
+        }
+
+.aref-ruqaa-regular {
+  font-family: "Aref Ruqaa", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.aref-ruqaa-bold {
+  font-family: "Aref Ruqaa", serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.normal_font{
+    font-family:'Inter', sans-serif !important ;
+}
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            border-color: var(--border);
+            scroll-behavior: smooth;
+            direction: rtl;
+            font-family: Aref Ruqaa;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background);
+            color: var(--foreground);
+            line-height: 1.6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        section {
+            padding: 5rem 0;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+        }
+
+        h2 {
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+        }
+
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: #2563eb;
+        }
+
+        .divider {
+            width: 5rem;
+            height: 0.25rem;
+            background-color: var(--primary);
+            margin: 0.5rem auto 3rem;
+        }
+
+        /* 
+    =======================
+    Animations
+    =======================
+  */
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .fade-in-delay-1 {
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 0.2s forwards;
+        }
+
+        .fade-in-delay-2 {
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 0.4s forwards;
+        }
+
+        .fade-in-delay-3 {
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 0.6s forwards;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* 
+    =======================
+    Button Styles
+    =======================
+  */
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            font-weight: 500;
+            border-radius: var(--radius);
+            transition: background-color 0.3s, color 0.3s;
+            cursor: pointer;
+        }
+
+        .button svg {
+            flex-shrink: 0;
+        }
+
+        .button.primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .button.primary:hover {
+            background-color: #2563eb;
+        }
+
+        .button.secondary {
+            background-color: var(--secondary);
+            color: var(--foreground);
+        }
+
+        .button.secondary:hover {
+            background-color: #cbd5e1;
+        }
+
+        /* 
+    =======================
+    Navbar
+    =======================
+  */
+        #navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            padding: 1.5rem 0;
+        }
+
+        #navbar.scrolled {
+            background-color: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(5px);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+        }
+
+        #navbar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .desktop-nav {
+            display: none;
+        }
+
+        .desktop-nav a {
+            margin-left: 2rem;
+            color: var(--foreground);
+            font-weight: 500;
+        }
+
+        .desktop-nav a:hover {
+            color: var(--primary);
+        }
+
+        .mobile-menu-button {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+        }
+
+        .menu-icon,
+        .menu-icon::before,
+        .menu-icon::after {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background-color: var(--foreground);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .menu-icon::before,
+        .menu-icon::after {
+            content: '';
+            position: absolute;
+            left: 0;
+        }
+
+        .menu-icon::before {
+            top: -8px;
+        }
+
+        .menu-icon::after {
+            bottom: -8px;
+        }
+
+        .menu-open .menu-icon {
+            background-color: transparent;
+        }
+
+        .menu-open .menu-icon::before {
+            top: 0;
+            transform: rotate(45deg);
+        }
+
+        .menu-open .menu-icon::after {
+            bottom: 0;
+            transform: rotate(-45deg);
+        }
+
+        .mobile-nav {
+            display: none;
+            width: 100%;
+            background-color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            top: 100%;
+            left: 0;
+            padding: 1rem 0;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .mobile-nav.open {
+            display: block;
+        }
+
+        .mobile-nav a {
+            display: block;
+            padding: 0.75rem 0;
+            color: var(--foreground);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .mobile-nav a:last-child {
+            border-bottom: none;
+        }
+
+        /* 
+    =======================
+    Hero Section
+    =======================
+  */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 5rem;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .profile-image {
+            width: 8rem;
+            height: 8rem;
+            overflow: hidden;
+            border-radius: 50%;
+            border: 4px solid var(--primary);
+            padding: 0.25rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .hero h1 {
+            margin-bottom: 1rem;
+        }
+
+        .hero h1 .text-primary {
+            color: var(--primary);
+        }
+
+        .hero h2 {
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: var(--muted-foreground);
+            margin-bottom: 1.5rem;
+            max-width: 36rem;
+        }
+
+        .hero h2 .font-medium {
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            background-color: var(--secondary);
+            color: var(--foreground);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .scroll-down {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            background-color: var(--secondary);
+            color: var(--foreground);
+            border-radius: 50%;
+            animation: bounce 2s infinite;
+            transition: all 0.3s ease;
+        }
+
+        .scroll-down:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            20%,
+            50%,
+            80%,
+            100% {
+                transform: translateY(0);
+            }
+
+            40% {
+                transform: translateY(-10px);
+            }
+
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* 
+    =======================
+    About Section
+    =======================
+  */
+        .about {
+            background-color: var(--secondary);
+        }
+
+        .section-content {
+            max-width: 48rem;
+            margin: 0 auto;
+        }
+
+        .about-card {
+            background-color: white;
+            border-radius: var(--radius);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .skill-pill img {
+            width: 30px;
+            height: 30px;
+            margin-left: 10px;
+        }
+
+        .skill-pill {
+            cursor: pointer;
+            background-color: var(--secondary);
+            color: var(--foreground);
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .skill-pill:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .resume-button-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        /* 
+    =======================
+    Projects Section
+    =======================
+  */
+        .project-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .project-card {
+            background-color: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .project-image {
+            display: flex;
+            position: relative;
+            width: 100%;
+            height: 16rem;
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+
+            /* height: 100%; */
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.1);
+        }
+
+        .project-overlay {
+            position: absolute;
+            inset: 0;
+            background-color: rgba(59, 130, 246, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 2.5rem;
+            height: 2.5rem;
+            background-color: white;
+            color: var(--primary);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+        }
+
+        .project-link:hover {
+            background-color: var(--foreground);
+            color: white;
+        }
+
+        .project-details {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .project-details h3 {
+            margin-bottom: 0.75rem;
+        }
+
+        .project-details p {
+            color: var(--muted-foreground);
+            margin-bottom: 1rem;
+        }
+
+        .project-technologies {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: auto;
+        }
+
+        /* 
+    =======================
+    Contact Section
+    =======================
+  */
+        .contact {
+            background-color: var(--secondary);
+        }
+
+        .contact-container {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .contact-info,
+        .contact-form {
+            background-color: white;
+            border-radius: var(--radius);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .contact-icon img {
+            width: 30px;
+            height: 30px;
+        }
+
+        .contact-icon {
+            /* background-color: rgba(59, 130, 246, 0.1); */
+            padding: 0.75rem;
+
+            border-radius: 50%;
+            margin-right: 1rem;
+            color: var(--primary);
+        }
+
+        .contact-text h4 {
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .contact-text a {
+            color: var(--primary);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.25rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            background-color: white;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.3);
+        }
+
+        /* 
+    =======================
+    Footer
+    =======================
+  */
+        .footer {
+            background-color: white;
+            padding: 2rem 0;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .footer .social-links {
+            margin-bottom: 1rem;
+        }
+
+        .footer-text {
+            text-align: center;
+        }
+
+        .footer-text p {
+            color: var(--muted-foreground);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.25rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .footer-text p:last-child {
+            margin-bottom: 0;
+            font-size: 0.875rem;
+        }
+
+        /* 
+    =======================
+    Media Queries
+    =======================
+  */
+        @media (min-width: 768px) {
+            h1 {
+                font-size: 3rem;
+            }
+
+            h2 {
+                font-size: 2.25rem;
+            }
+
+            .desktop-nav {
+                display: flex;
+            }
+
+            .mobile-menu-button {
+                display: none;
+            }
+
+            .profile-image {
+                width: 10rem;
+                height: 10rem;
+            }
+
+            .hero h2 {
+                font-size: 1.5rem;
+            }
+
+            .project-card {
+                flex-direction: row;
+            }
+
+            .project-card.reverse {
+                flex-direction: row-reverse;
+            }
+
+            .project-image {
+                width: 50%;
+                height: auto;
+            }
+
+            .contact-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            h1 {
+                font-size: 3.5rem;
+            }
+        }
+
+        @media (min-width: 300px) and (max-width: 700px) {
+            .project-image {
+                display: flex;
+                justify-content: center;
+
+            }
+
+            .project-image img {
+                width: auto;
+                height: 100%;
+            }
+        }
+    </style>
+    <!-- <link rel="stylesheet" href="styles.css"> -->
+</head>
+
+<body>
+    <!-- Navigation -->
+    <header id="navbar">
+        <div class="container">
+            <a href="#" class="logo"> <h2>سعد السيد</h2></a>
+
+            <button class="mobile-menu-button" aria-label="Toggle menu">
+                <span class="menu-icon"></span>
+            </button>
+
+            <nav class="desktop-nav">
+                <a href="#home">الرئيسية</a>
+                <a href="#about">عني</a>
+                <a href="#projects">المشاريع</a>
+                <a href="#equipments">الادوات</a>
+                <a href="#contact">التواصل</a>
+            </nav>
+        </div>
+
+        <nav class="mobile-nav">
+            <div class="container">
+                <a href="#home">الرئيسية</a>
+                <a href="#about">عني</a>
+                <a href="#projects">المشاريع</a>
+                <a href="#equipments">الادوات</a>
+                <a href="#contact">التواصل</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="profile-image fade-in">
+                    <img src="https://lh3.googleusercontent.com/pw/AP1GczMRm48XPxod6kDr3sqbVC-Sfmx7gpWZT182MP9NsDwfnHHGqWBRU-6ZqrCuJZFwnhSovpoc7dHEc21oy-MaPklxRQlzT_ZEDh7-WXpSZSaBCGuh2ZZj=s150-p-k" alt="Profile">
+                    <!-- <img src="https://lh3.googleusercontent.com/pw/AP1GczN3of2_VePyC9imA7UsDymb8qEo3yjIT_Wt4fymcsVGnxWM01-nl2ZNsVqItBsltvkAXJ7svbSCxvVm2nJAr-FXaqUTPe63ltZEgD-_nEC_Ox-L8siD=w2400" alt="Profile"> -->
+                    <!-- <img src="https://lh3.googleusercontent.com/pw/AP1GczO0uzqOWrRp_RMVEKd9u7GZvdTiW8JTjg3Av3_Nyhylqq4dEyhPNUZGCOCJ1_-a6fqJ3SJnmL3Maoi7jEfC0-YSYcvuOosLzRzXdvGTSRlcGs5wBAtx=w2400" alt="Profile"> -->
+                </div>
+
+                <h1 class="fade-in-delay-1">
+                    اهلا انا <span class="text-primary">سعد السيد</span> 👋
+                </h1>
+                <!-- <h3 class="fade-in-delay-1">- Hackoro -</h3> -->
+
+                <h2 class="fade-in-delay-2">
+                    <!-- A passionate <span class="font-medium">Frontend Developer, Montage & Sound Designer, 3D & 2D Artist, -->
+                        شغلتي في الكوكب <span class="font-medium">logo designer و graphic designer و photographer</span>
+                </h2>
+
+
+
+                <a href="#about" class="scroll-down">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="m6 9 6 6 6-6"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-content">
+                <h2>عني</h2>
+                <div class="divider"></div>
+
+                <div class="about-card">
+                    <p class="normal_font">
+                        أنا سعد السيد، شغوف بالتصوير والتصميم، بدأت رحلتي من سنة 2016 بتعلُّم المهارات الأساسية في التصوير باستخدام الهاتف، وركّزت على تصوير السيارات والمناظر الطبيعية، بالإضافة إلى تعديل الصور وتحسين جودتها.
+                    </p>
+                    <p class="normal_font">
+                        
+                        مع مرور الوقت، اتجهت لصناعة المحتوى على يوتيوب، واتعمقت في مجالات المونتاج، التصميم، وتحرير الفيديو باستخدام أدوات متنوعة – وكل ده بدأته من خلال الهاتف. بعد كده، أخدت كورس احترافي في التصوير وصناعة المحتوى، واللي ساعدني أطور شغلي بشكل كبير.
+                    </p>
+                    <p class="normal_font">
+                        
+                        دلوقتي معايا معدات وأجهزة أفضل، وبشتغل فعليًا في التصوير والجرافيك، ولسه بكمل في المشوار ده، وبسعى إني أكون مميز في المجال ده وأقدّم شغل يعجب الناس ويعبّر عن شغفي.
+                    </p>
+
+                    <h3>مهاراتي</h3>
+                    <div class="skills">
+
+                        JS Automation
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <h2>المشاريع</h2>
+            <div class="divider"></div>
+
+            <div class="project-cards">
+                <!-- Project 1 -->
+                <div class="project-card">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                            alt="E-commerce Dashboard">
+                    </div>
+
+                    <div class="project-details">
+                        <h3>E-commerce Dashboard</h3>
+                        <p>A comprehensive admin dashboard for e-commerce platforms with sales analytics, inventory
+                            management, and customer insights.</p>
+
+
+
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+    <section id="equipments" class="projects">
+        <div class="container">
+            <h2>الادوات</h2>
+            <div class="divider"></div>
+
+            <div class="project-cards equipments">
+                <!-- Project 1 -->
+                <div class="project-card reverse">
+                    <div class="project-image">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80"
+                            alt="E-commerce Dashboard">
+                    </div>
+
+                    <div class="project-details">
+                        <h3>E-commerce Dashboard</h3>
+                        <p>A comprehensive admin dashboard for e-commerce platforms with sales analytics, inventory
+                            management, and customer insights.</p>
+
+
+
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <div class="divider"></div>
+
+            <div class="contact-container">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+
+                    <div class="contact-details">
+                        js Automation
+                        <!-- <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path
+                                        d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
+                                    </path>
+                                </svg>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Phone</h4>
+                                <a href="tel:+1234567890">+1 (234) 567-890</a>
+                            </div>
+                        </div>
+
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                                    <circle cx="12" cy="10" r="3"></circle>
+                                </svg>
+                            </div>
+                            <div class="contact-text">
+                                <h4>Location</h4>
+                                <p>San Francisco, California</p>
+                            </div>
+                        </div> -->
+                    </div>
+                </div>
+
+                <!-- <div class="contact-form">
+                    <h3>Send a Message</h3>
+
+                    <form id="contact-form">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="4" required></textarea>
+                        </div>
+
+                        <button type="submit" class="button primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="m22 2-7 20-4-9-9-4Z"></path>
+                                <path d="M22 2 11 13"></path>
+                            </svg>
+                            Send Message
+                        </button>
+                    </form>
+                </div> -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+
+    </footer>
+
+    <!-- <script src="main.js"></script> -->
+    <script>
+        // ___________________________________________ Confige ___________________________________________
+        const skills = [
+            { name: "Canva", svg: "https://lh3.googleusercontent.com/pw/AP1GczP8Q8D3mnb7ZXXVxkQLkdW4WApiuZ2-U0lN-eksxf9bezneDZ0PxwyIa4YcbouQJOLnzI297cbbrzIG_Sr_yBMVlM-SuClCXOUn53wmx4Vp1Bc3yzXN=w2400" },
+            { name: "SnapSeed", svg: "https://lh3.googleusercontent.com/pw/AP1GczNRHHaD_1N_s9ZMbliOJKPvapEbjujHppJ8O_MmUcwNewE5L0KSHJwuy2cYneIgEmkGVYCWOdPNcoBtMGgRmxLgIQRigKks-p_VjvimYLgVtU8G2QB-=w2400" },
+            { name: "X Zoom Camera", svg: "https://lh3.googleusercontent.com/pw/AP1GczOka5SWeqh-qOZdYlF0e3r_mWe6Cq4BBcMkAytPzyesVzip-jzgb8Hk3-neyi5NZvVVawJaTZI35IV_eQ-4N8HWsYwGqOIN9Jcdi9YOSK597IWeU3gI=w2400" },
+            { name: "Dazz Cam", svg: "https://lh3.googleusercontent.com/pw/AP1GczPBCIW_4swXpfHIrPGPo1r-pAf-b1kxJ_bi5n9VjfoyxkGCq9cVPklIN2wRERj3gU2WiAOskbcpFBI6bAQC1uk4zVe4zl_JOCYpXVgCghblM0XTUIuX=s250-p-k" },
+            { name: "Black Magic Camera", svg: "https://lh3.googleusercontent.com/pw/AP1GczPz8Y7KWBNU7r-nf4Kp0J2iygixnXOJ2rD_DBbB9lP3gdoLt7b-VDHROA7Upz3-zHILuJfsJESKZDtXo3zX9NM2GZHcbb_Ak5JN5ckp2K1cwjCN1sV5=s200-p-k" },
+            { name: "VN Video Editor", svg: "https://lh3.googleusercontent.com/pw/AP1GczNfR_zKfgzzJud-CU3b4IEaFfGRd2zdvAvlHDzwihWm8qpr31QgPr5QBOEll7smB0fbCP3G_GIo2MK_gMExB_hKPQcC-IUc5625Y2TjIclm4EJVNNZ2=w2400" },
+            { name: "Adobe Illustrator", svg: "https://lh3.googleusercontent.com/pw/AP1GczMsDUrN4tXGZWQcwBIDEay1cnfzJBSsHL1N_IXH8jAiJAk-D5cAaeh-2vB_FaTJhbsBxT2gYhF_6Gw8DBggNkHj60UdmoROvlTQp4D34Mz1IuoFaRek=w2400" },
+            { name: "Picsart", svg: "https://lh3.googleusercontent.com/pw/AP1GczOimd1zVQ3AeitODIhxskyV4yEIuSjd1fTThDZpXNlVm96TOli17fvPmzU6WgfmOZSoQIiJp8-fcpllXpxKkw720v1bH3nVxohBSh4A0Pqdc3ilcU1C=w2400" },
+            { name: "Adobe Lightroom", svg: "https://lh3.googleusercontent.com/pw/AP1GczPDTUiIYKC8XX3G8edO18GnFFX4i8xVobpwSzyYI3JfLe5j2iLMpziuXkUQNanWQRPfrZPziBzPIpp7WE4zIDcSrdUStZDz_hi4Q-UW-nqV98q3ZkEA=w2400" },
+            // { name: "xxx", svg: "xxx" },
+        ];
+        const Projects = [
+            { name: "التصميم", img: "https://lh3.googleusercontent.com/pw/AP1GczNMMx4CGTyyBnoM_dtV8whh37P5xIXYHftAG6nChndLos61L7LsdpJEri7LJ3PZMfo7ZK3AYX5ALStkibwNiL02DjQkR-2lXNVaTtx2KS7ZGa0k5FOh=w2400", bio: "أعمالي في التصميم الجرافيكي تجمع بين الإبداع والدقة، وتعكس فهمًا عميقًا للألوان، التكوين، والتوازن البصري. أتنقل بين الأساليب اليدوية والرقمية، وأستخدم أدوات مثل Photoshop وIllustrator لصناعة تصاميم تحمل هوية قوية ورسالة واضحة. سواء كان التصميم لغرض تسويقي، أو لعرض فكرة، أو للتجريب بأساليب بصرية جديدة، أحرص دائمًا على أن يكون التصميم جذابًا ومعبّرًا. كل عمل في مجموعتي يهدف إلى إيصال فكرة أو خلق تجربة بصرية متميزة، وهو ما يعكس تنوعي وشغفي بالتفاصيل والدقة في تنفيذ التصاميم." },
+            { name: "اللوجوهات", img: "https://lh3.googleusercontent.com/pw/AP1GczO6Jl8iYsdCHvssWMaSNYCGiSDeOBEIdLUYk50b1ry7eLvZyHuYezm-UDMqnsoWUwcN8M0piy4FzQh4FLlZqW7vp9Xh5ClUNTqeQR2l7EQqVo04FgVa=w2400", bio: "تصميم الشعارات هو أكثر من مجرد رسم؛ هو عملية تجسيد لهوية بصرية تعبّر عن جوهر العلامة التجارية. في عملي بمجال تصميم اللوجو، أركز على الدمج بين البساطة والتميّز، بحيث يكون الشعار معبّرًا، قابلًا للتذكّر، وفعّالًا في مختلف الاستخدامات. أبدأ كل مشروع بفهم عميق لرسالة العميل وقيمه، ثم أترجم هذه المفاهيم إلى أشكال وخطوط وألوان تحمل طابعًا بصريًا واضحًا ومميزًا. أستخدم أدوات مثل Illustrator لتصميم شعارات عالية الجودة، وأعتمد على مبادئ التصميم الأساسية مثل التوازن، التباين، والتناسب، إلى جانب الابتكار في الرمزية والبناء البصري. كل شعار في معرض أعمالي يعكس قصة وهوية، ويهدف إلى خلق انطباع أولي قوي يدوم في أذهان الجمهور. عملي في هذا المجال يجمع بين التحليل، الحس الفني، والدقة في التنفيذ، ما يجعل كل شعار تجربة تصميمية متكاملة" },
+            { name: "التصوير", img: "https://lh3.googleusercontent.com/pw/AP1GczOsI-BSSP3B7s9RVpJv_sfNoP3nd2m8M-9TZC_8VGFFEV6RDKIj6N0Ryeqd3rhtcBUcGiM4QiTnUrI5H3lx54e6KZK13Ia-jlN1Rl5ewA_s684ttRJS=w2400", bio: "يتضمن معرض أعمالي مجموعة متنوعة من الصور التي تعكس شغفي بالتفاصيل، والإضاءة، وتكوين اللقطة. أحرص في كل صورة على التقاط لحظة تعبّر عن إحساس أو تروي قصة، سواء في تصوير السيارات أو المناظر الطبيعية. أستخدم الكاميرا كوسيلة للتعبير البصري، حيث أدمج بين الجانب الفني والجانب التقني لإنتاج صور متوازنة من حيث التكوين والإضاءة والجو العام. كل صورة في مجموعتي تم التقاطها بعناية لتجسّد لحظة فريدة أو تنقل إحساس معيّن، ما يعكس فهمي للضوء والحركة والزوايا، وسعيي الدائم لتطوير أسلوبي الخاص." },
+           
+        ];
+
+        const equipments = [
+            { name: "Iphone 12 Pro Max", bio: "Internal<br>256GB 8GB RAM NVMe<br>Main Camera<br>Dual	48 MP, f/1.6, 26mm (wide), 1/1.56, 1.0µm, dual pixel PDAF, sensor-shift OIS 12 MP, f/2.4, 13mm, 120˚ (ultrawide), 0.7µm<br>Features	Dual-LED dual-tone flash, HDR (photo/panorama)<br>Video	4K@24/25/30/60fps, 1080p@25/30/60/120/240fps, HDR, Dolby Vision HDR (up to 60fps), stereo sound rec.<br>Selfie camera	Single	12 MP, f/1.9, 23mm (wide), 1/3.6, 1.0µm, PDAF SL 3D, (depth/biometrics sensor)<br>Features	HDR, Dolby Vision HDR Video	4K@24/25/30/60fps, 1080p@25/30/60/120fps, gyro-EIS<br>Sound	Loudspeaker<br>stereo speakers", img: "https://lh3.googleusercontent.com/pw/AP1GczMIXxgUMnaxS3FNibiT9c-vFwMmBNqdcAvKcuvZeGRRtyT87Ei8Lf4izvYPVPNUHKP9hSzwx20J3HMkudjfSTR7omFTj5qM5gm7neG8kmCc02p5v06B=w2400" },
+            { name: "Samsung Zfold 3", bio: "Internal<br>256GB 8GB RAM NVMe<br>Main Camera<br>Dual	48 MP, f/1.6, 26mm (wide), 1/1.56, 1.0µm, dual pixel PDAF, sensor-shift OIS 12 MP, f/2.4, 13mm, 120˚ (ultrawide), 0.7µm<br>Features	Dual-LED dual-tone flash, HDR (photo/panorama)<br>Video	4K@24/25/30/60fps, 1080p@25/30/60/120/240fps, HDR, Dolby Vision HDR (up to 60fps), stereo sound rec.<br>Selfie camera	Single	12 MP, f/1.9, 23mm (wide), 1/3.6, 1.0µm, PDAF SL 3D, (depth/biometrics sensor)<br>Features	HDR, Dolby Vision HDR Video	4K@24/25/30/60fps, 1080p@25/30/60/120fps, gyro-EIS<br>Sound	Loudspeaker<br>stereo speakers", img: "https://lh3.googleusercontent.com/pw/AP1GczOIDR0wqiz1LUjMAcKEZhUrsqvyqVcyrxwDcmGr82dPifaTOd-KxCul78QQREAJqlVc96C8mwD2a8P2RqG13RtcP1A-O4n7ChfjhLHY8mfl_tvhzGiC=w2400" },
+            { name: "Hp EliteOne 800 G3 ", bio: "23.8-inch Touch AiO PC i7-7700 / 8GB /1TB / win10pro", img: "https://lh3.googleusercontent.com/pw/AP1GczNM75mNEaksizJxspB_xKe3E-4ndjFYb0KJ3sa0_kaX3j6iSdHm_jdlX3ud1bw3ZVK-WVyl9NE9wMZpjnzAykWjO87CxZWfYEdjqKZl82Wg3FoqBSxu=w2400" },
+            { name: "Dell parison 5520", bio: "Intel Core i7-7H <br>NVIDIA Quadro <br>16 GB DDR <br> 512 GB SSD<br>", img: "https://lh3.googleusercontent.com/pw/AP1GczNy_u5seVuQzLbu-O8b1ZVU22SDJobmaOYUWUsjXf-9zoKki35clnLyd-Pe1dnJ5Qdm8xxLJrmrknBAL-j5RT83D0cQmfs_CUqpcYDtrdRDZuQ5Ab_m=w2400" },
+            { name: "Osmo mobile 2", bio: "Osmo mobile 2", img: "https://lh3.googleusercontent.com/pw/AP1GczNa_xFqs0xdsxdCDaovzPTywFF_BXSvYnvs9glPc44McmXNUyPg6m3Edk1gjUi-Q_uaH1OQWW_NlUoKMQtgte2qDlZ1ItoKz50V8P9zhxxvcc3zCIsg=w2400" },
+            { name: "Full Setup", bio: "Full Setup in Full Form :)", img: "https://lh3.googleusercontent.com/pw/AP1GczMGQLThZDeb_BwmXWBZX715S3RRi752pYCy3yp7vbwtG59_5DZ8O8XaaKmFvgI1vm4cEilrGh85zwNKA_tKmz9uHxu8RjY59r-SQ8j2ZJiStGfpZnjj=w2400" },
+        ];
+
+        const contacts = [
+            { lable: "Whatsapp", name: "01025355900", link: "https://wa.me/01025355900", img: "https://lh3.googleusercontent.com/pw/AP1GczNmxgZ7BTUNWFF4Iu8XIGTvl1nUOb0N_rrWbLMvn-LBW5xDzJCoBgwhE814_7mPq4HyevecQ3zKDy8oH5OQu3OLkhJSnu65Bg_B_PpkwR8zSCKfD0hA=w2400" },
+            { lable: "Instagram", name: "saad.elsayed06", link: "https://www.instagram.com/saad.elsayed06", img: "https://lh3.googleusercontent.com/pw/AP1GczORtI2WR3O2zO6Jyozxd6HGrcr2RFZtQDu571zQQOFqtRlVIS2GLeaNa7uRX_ST27BANApcMAQMYtlcGq14DU8qbnzgKTyjP5E8Iht-u7eRjaqrxSsn=w2400" },
+            { lable: "Instagram", name: "ghali_qr", link: "https://www.instagram.com/ghali_qr", img: "https://lh3.googleusercontent.com/pw/AP1GczORtI2WR3O2zO6Jyozxd6HGrcr2RFZtQDu571zQQOFqtRlVIS2GLeaNa7uRX_ST27BANApcMAQMYtlcGq14DU8qbnzgKTyjP5E8Iht-u7eRjaqrxSsn=w2400" },
+            { lable: "Instagram", name: "saad_elsayed2006", link: "https://www.instagram.com/saad_elsayed2006", img: "https://lh3.googleusercontent.com/pw/AP1GczORtI2WR3O2zO6Jyozxd6HGrcr2RFZtQDu571zQQOFqtRlVIS2GLeaNa7uRX_ST27BANApcMAQMYtlcGq14DU8qbnzgKTyjP5E8Iht-u7eRjaqrxSsn=w2400" },
+            { lable: "TikTok", name: "saad.elsayed06", link: "https://www.tiktok.com/@saad.elsayed06?_t=ZS-8vVoJo26yyf&_r=1", img: "https://lh3.googleusercontent.com/pw/AP1GczMnYodYoWwXXwIbt2AFdlmVErG3YNgjGnFC3v7S5M5_fUVjljtyXoBoXnXD4t2yBxHQ1NrIS9BMy7y29xxWVaddO0lr6Ffgam_tZbwV_prViRYTSnMa=w2400" },
+            { lable: "Behance", name: "Saad Elsayed", link: "https://www.behance.net/saadelsayed2", img: "https://lh3.googleusercontent.com/pw/AP1GczPhXMljX7Wx_aI6AP4OokP4tfO6cOCD8L6akPLStC74bAsa6tm2wYNVd1Lu16eTjEpNjuYa9UQp5KYacvB4wOPaLzA_1upGdRO7jVAMfZh4McT7Nb-x=w2400" },
+            { lable: "Pintrest", name: "Saad Elsayed", link: "https://pin.it/MHD5EJtw3", img: "https://lh3.googleusercontent.com/pw/AP1GczOtyuFD2eJnRn0yMq6AyvUbGKYPZfOsL7NuI0OZ54lZPPEBgbvcLCsRo67V8rEdSwdXWjP-eMMejXaCDuULpsrlGOKKeNW8F5eMxmAUTSc5vK3F_N-j=w2400" },
+            { lable: "Work Gmail", name: "saad.elsayed2006@gmail.com", link: "mailto:saad.elsayed2006@gmail.com", img: "https://lh3.googleusercontent.com/pw/AP1GczPAylb8YWX4LEFDChKk5qeQ43YDgMlnvijnW9a3ffkZWN_tMDeORuoCF__pR_ngoLXkKqLsqbByVS3Pln3WTd_FcRhibII-XUdMehJlQRKc_cCcQiOx=w2400" },
+            { lable: "Youtube", name: "saadelsayed", link: "https://youtube.com/@saadelsayed?si=aevPEbJG54yzOVQb", img: "https://lh3.googleusercontent.com/pw/AP1GczPCjDUVccib1xMjGsvulFzXCP8tQhrUfTDmpeHBF2M2AO0-we7nCqsts5r3_9FCDwwm5UcESfoqHS1He35fpP8P5WTcl7dvE_H84puyaGb37wNjwC_R=w2400" },
+            // { lable: "Facebook", name: "Nour Shady", link: "https://www.facebook.com/nourshadymohamed", img: "https://lh3.googleusercontent.com/pw/AP1GczMAyck3pSFN95JWe5Hih9X6Tlsw-CdUB_Q0RcGRlhV-0kIW1vZ4In-L-VHZjIztfOTM29Zz0UtFIpON4phrHqhzExJd56HodICjNdx_j8_zXa6GsWj6=w2400" },
+            // { lable: "Personal Gmail", name: "iamnour789524@gmail.com", link: "mailto:iamnour789524@gmail.com", img: "https://lh3.googleusercontent.com/pw/AP1GczPAylb8YWX4LEFDChKk5qeQ43YDgMlnvijnW9a3ffkZWN_tMDeORuoCF__pR_ngoLXkKqLsqbByVS3Pln3WTd_FcRhibII-XUdMehJlQRKc_cCcQiOx=w2400" },
+            // { lable: "Snapchat", name: "hackoro", link: "https://www.snapchat.com/add/hackoro?share_id=duVzWpK3QOCsxn2I6FRLYQ&locale=en_EG", img: "https://lh3.googleusercontent.com/pw/AP1GczMpQ312eJpG7FvwYAYxVP_MPYPb_PLVaB8S5c4X6R9IEGdoWnLg_s61jHoR4xHEMYSSQ5egGysgvjjUjPmownnaj8Xc_2sCfU9JsEAXd_yY5zoIVNm2=w2400" },
+            // { lable: "test",name: "reactjs", link: "./reactjs.svg", img: "./reactjs.svg" },
+        ];
+
+        // ___________________________________________ Confige ___________________________________________
+
+        // DOM Elements
+        const navbar = document.getElementById("navbar");
+        const mobileMenuButton = document.querySelector(".mobile-menu-button");
+        const mobileNav = document.querySelector(".mobile-nav");
+        const contactForm = document.getElementById("contact-form");
+        const currentYearElement = document.getElementById("current-year");
+
+        // Set current year in footer
+        // currentYearElement.textContent = new Date().getFullYear();
+
+        // Handle navbar scroll effect
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 10) {
+                navbar.classList.add("scrolled");
+            } else {
+                navbar.classList.remove("scrolled");
+            }
+        });
+
+        // Toggle mobile menu
+        mobileMenuButton.addEventListener("click", () => {
+            mobileMenuButton.classList.toggle("menu-open");
+            mobileNav.classList.toggle("open");
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll(".mobile-nav a").forEach((link) => {
+            link.addEventListener("click", () => {
+                mobileMenuButton.classList.remove("menu-open");
+                mobileNav.classList.remove("open");
+            });
+        });
+
+        // Handle contact form submission
+        if (contactForm) {
+            contactForm.addEventListener("submit", (e) => {
+                e.preventDefault();
+
+                const formData = new FormData(contactForm);
+                const formValues = Object.fromEntries(formData.entries());
+
+                // Log form data (in a real app, you would send this to a server)
+                console.log("Form submitted:", formValues);
+
+                // Show success message
+                alert("Thanks for your message! I'll get back to you soon.");
+
+                // Reset form
+                contactForm.reset();
+            });
+        }
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+            anchor.addEventListener("click", function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute("href");
+                if (targetId === "#") return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80, // Offset for navbar
+                        behavior: "smooth",
+                    });
+                }
+            });
+        });
+
+        // Simple animation for project cards
+        const observeElements = (elements, className) => {
+            const observer = new IntersectionObserver(
+                (entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add(className);
+                        }
+                    });
+                },
+                {
+                    threshold: 0.1,
+                }
+            );
+
+            elements.forEach((el) => {
+                observer.observe(el);
+            });
+        };
+
+        // Add animation classes when elements come into view
+        document.addEventListener("DOMContentLoaded", () => {
+            observeElements(document.querySelectorAll(".project-card"), "fade-in");
+            observeElements(document.querySelectorAll(".about-card"), "fade-in");
+            observeElements(
+                document.querySelectorAll(".contact-info, .contact-form"),
+                "fade-in"
+            );
+        });
+
+        // skills <div class="skills">
+        var skill_dev = "";
+        function processIcons() {
+            skills.forEach((icon) => {
+                skill_dev += `<span class="skill-pill"><img src="${icon.svg}" alt="${icon.name}">${icon.name}</span>`;
+            });
+            document.querySelector(".skills").innerHTML = skill_dev;
+            //   console.log(skill_dev);
+        }
+
+        // Call the function
+        processIcons();
+
+        // skills <div class="project-cards">
+        var projects_dev = "";
+        function processProjects() {
+            Projects.forEach((Project) => {
+                projects_dev += `<div class="project-card ">
+                    <div class="project-image">
+                        <img src="${Project.img}"
+                            alt="${Project.name}">
+                    </div>
+                    <div class="project-details">
+                        <h3 class="normal_font">${Project.name}</h3>
+                        <p class="normal_font">${Project.bio}</p>
+                    </div>
+                    </div>`;
+            });
+            document.querySelector(".project-cards").innerHTML = projects_dev;
+            //   console.log(projects_dev);
+        }
+
+        // Call the function
+        processProjects();
+        var equipments_dev = "";
+        function equipmentsProjects() {
+            equipments.forEach((equipment) => {
+                equipments_dev += `<div class="project-card reverse">
+                    <div class="project-image">
+                        <img src="${equipment.img}"
+                            alt="${equipment.name}">
+                    </div>
+                    <div class="project-details">
+                        <h3>${equipment.name}</h3>
+                        <p>${equipment.bio}</p>
+                    </div>
+                    </div>`;
+            });
+            document.querySelector(".equipments").innerHTML = equipments_dev;
+            //   console.log(projects_dev);
+        }
+
+        // Call the function
+        equipmentsProjects();
+
+        // skills  <div class="contact-details">
+        var contacts_dev = "";
+        function processContacts() {
+            contacts.forEach((contact) => {
+                contacts_dev += `   <div class="contact-details">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                               <img src="${contact.img}"
+                            alt="${contact.lable}">
+                            </div>
+                            <div class="contact-text">
+                                <h4>${contact.lable}</h4>
+                                <a target="_blank" href="${contact.link}">${contact.name}</a>
+                            </div>
+                        </div>`;
+            });
+            document.querySelector(".contact-details").innerHTML = contacts_dev;
+            //   console.log(contacts_dev);
+        }
+
+        // Call the function
+        processContacts();
+
+    </script>
+</body>
+
+</html>
