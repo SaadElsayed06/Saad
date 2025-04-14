@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            background-color: rgb(31, 31, 31);
+            color: white;
+        }
+
+        table {
+            width: 90%;
+
+        }
+
+        img {
+            width: 50px;
+        }
+
+        tr {
+            width: 100%;
+        }
+
+        td {
+            padding: 5px;
+        }
+
+        input {
+            height: 30px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.397);
+            border: none;
+            padding: 5px;
+            text-align: center;
+            color: white;
+        }
+
+        textarea {
+            height: 30px;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.397);
+            border: none;
+            padding: 5px;
+            text-align: center;
+            color: white;
+        }
+
+        .delete {
+            border: none;
+            border-radius: 10%;
+            height: 100%;
+            background-color: rgb(163, 1, 1);
+            padding: 10px;
+            color: white;
+            cursor: pointer;
+        }
+
+        .add_item {
+            width: 90%;
+            height: 50px;
+            background-color: rgb(173, 223, 243);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 32px;
+        }
+
+        .save {
+            width: 90%;
+            height: 50px;
+            background-color: rgb(68, 124, 66);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 24px;
+            margin: 50px;
+        }
+        .drag-icon{}
+    </style>
+</head>
+
+<body>
+<h1>🤵🏻 Visitors : <span id="visitors_count"></span></h1>
+    <table>
+        <!-- <thead>
+            <tr>
+                <th>
+                    <h1>Sites</h1>
+                </th>
+                <th>
+                    <h1>Views</h1>
+                </th>
+                <th>
+                    <h1>Clicks</h1>
+                </th>
+                <th>
+                    <h1>Average</h1>
+                </th>
+            </tr>
+        </thead> -->
+        <tbody id="skills">
+
+        </tbody>
+    </table>
+    <button class="add_item" onclick="add_item('skills')">+</button>
+    <table>
+        <!-- <thead>
+            <tr>
+                <th>
+                    <h1>Sites</h1>
+                </th>
+                <th>
+                    <h1>Views</h1>
+                </th>
+                <th>
+                    <h1>Clicks</h1>
+                </th>
+                <th>
+                    <h1>Average</h1>
+                </th>
+            </tr>
+        </thead> -->
+        <tbody id="projects">
+
+        </tbody>
+    </table>
+    <button class="add_item" onclick="add_item('projects')">+</button>
+    <table>
+        <!-- <thead>
+            <tr>
+                <th>
+                    <h1>Sites</h1>
+                </th>
+                <th>
+                    <h1>Views</h1>
+                </th>
+                <th>
+                    <h1>Clicks</h1>
+                </th>
+                <th>
+                    <h1>Average</h1>
+                </th>
+            </tr>
+        </thead> -->
+        <tbody id="equipments">
+
+        </tbody>
+    </table>
+    <button class="add_item" onclick="add_item('equipments')">+</button>
+    <table>
+        <!-- <thead>
+            <tr>
+                <th>
+                    <h1>Sites</h1>
+                </th>
+                <th>
+                    <h1>Views</h1>
+                </th>
+                <th>
+                    <h1>Clicks</h1>
+                </th>
+                <th>
+                    <h1>Average</h1>
+                </th>
+            </tr>
+        </thead> -->
+        <tbody id="contacts">
+
+        </tbody>
+    </table>
+    <button class="add_item" onclick="add_item('contacts')">+</button>
+    <button class="save" onclick="save_data()">Save</button>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyDOM6eABg9PBx9IuXM2EMwQt3aIbPitxIU",
+            authDomain: "profile-ea964.firebaseapp.com",
+            projectId: "profile-ea964",
+            storageBucket: "profile-ea964.firebasestorage.app",
+            messagingSenderId: "360404236229",
+            appId: "1:360404236229:web:33e05a0930905a9d02bdac",
+            measurementId: "G-JN35EGJP6V"
+        };
+
+
+        firebase.initializeApp(firebaseConfig);
+        const db = firebase.firestore();
+
+
+        function loadData() {
+            db.collection("saad").doc("default").get()
+                .then(doc => {
+                    if (doc.exists) {
+                        const jsonText = doc.data().data;
+                        const jsonData = JSON.parse(jsonText);
+                        console.log("Retrieved JSON:", jsonData);
+
+                       
+                        build_forms(jsonData);
+
+                    } else {
+                        console.log("No data found.");
+                    }
+                })
+                .catch(err => console.error("Error reading:", err));
+        }
+        function get_visitors_count() {
+            db.collection("saad").doc("count").get()
+                .then(doc => {
+                    if (doc.exists) {
+                        const number = doc.data().data;
+                       
+document.getElementById('visitors_count').innerText = number
+                       
+                       
+
+                    } else {
+                        console.log("No data found.");
+                    }
+                })
+                .catch(err => console.error("Error reading:", err));
+        }
+
+        get_visitors_count()
+        // function runYourFunction(data) {
+        //     console.log("Do something with:", data);
+        // }
+
+
+        function saveDataAsText(jsonObject) {
+            const textData = JSON.stringify(jsonObject); // حول JSON لنص
+            db.collection("saad").doc("default").set({ data: textData })
+                .then(() => console.log("Data saved to Firestore!"))
+                .catch(err => console.error("Error saving:", err));
+        }
+
+    </script>
+    <script>
+
+        function build_forms(data) {
+
+
+            const skills = data.skills
+
+            const projects = data.projects
+
+            const equipments = data.equipments
+
+            const contacts = data.contacts
+
+            skills.forEach(skill => {
+                row = `<tr>
+                    <td style="color:white;cursor:grabbing;" class="drag-icon">☰</td>
+                    <td><img src="${skill.svg}"></td>
+                    <td><input type="text" name="name" id="" value="${skill.name}"></td>
+                    <td><input type="text" name="svg" id="" value="${skill.svg}" onchange="update_img(this)"></td>
+                    <td><button class="delete" onclick="delete_tr(this)">X</button></td>
+                </tr>`
+                document.querySelector('#skills').innerHTML += row
+            });
+            projects.forEach(project => {
+                row = `<tr>
+                    <td style="color:white;cursor:grabbing;" class="drag-icon">☰</td>
+                    <td><img src="${project.img}"></td>
+                    <td><input type="text" name="name" id="" value="${project.name}"></td>
+                    <td><textarea type="text" name="bio" id="">${project.bio}</textarea></td>
+                    <td><input type="text" name="img" id="" value="${project.img}" onchange="update_img(this)"></td>
+                    <td><button class="delete" onclick="delete_tr(this)">X</button></td>
+                    </tr>`
+                document.querySelector('#projects').innerHTML += row
+            });
+            equipments.forEach(equipment => {
+                row = `<tr>
+                    <td style="color:white;cursor:grabbing;" class="drag-icon">☰</td>
+                        <td><img src="${equipment.img}"></td>
+                        <td><input type="text" name="name" id="" value="${equipment.name}"></td>
+                        <td><textarea type="text" name="bio" id="">${equipment.bio}</textarea></td>
+                    <td><input type="text" name="img" id="" value="${equipment.img}" onchange="update_img(this)"></td>
+                    <td><button class="delete" onclick="delete_tr(this)">X</button></td>
+                </tr>`
+                document.querySelector('#equipments').innerHTML += row
+            });
+            contacts.forEach(contact => {
+                row = `<tr>
+                    <td style="color:white;cursor:grabbing;" class="drag-icon">☰</td>
+                    <td><img src="${contact.img}"></td>
+                    <td><input type="text" name="lable" id="" value="${contact.lable}"></td>
+                    <td><input type="text" name="name" id="" value="${contact.name}"></td>
+                    <td><input type="text" name="link" id="" value="${contact.link}"></td>
+                    <td><input type="text" name="img" id="" value="${contact.img}" onchange="update_img(this)"></td>
+                    <td><button class="delete" onclick="delete_tr(this)">X</button></td>
+                </tr>`
+                document.querySelector('#contacts').innerHTML += row
+            });
+
+        }
+
+
+
+        function add_item(table_name) {
+            if (table_name == 'skills') {
+                row = `<tr>
+                    <td style="color:white;cursor:grabbing;" class="drag-icon">☰</td>
+                    <td><img src=""></td>
+                    <td><input type="text" name="name" id="" value=""></td>
+                    <td><input type="text" name="svg" id="" value="" onchange="update_img(this)"></td>
+                    <td><button class="delete" onclick="delete_tr(this)">X</button></td>
+                </tr>`
+                document.querySelector(`#${table_name}`).innerHTML += row
+            } else if (table_name == 'projects') {
+                row = `<tr>
+                    <td style="color:white;cursor:grabbing;" class="drag-icon">☰</td>
+                    <td><img src=""></td>
+                    <td><input type="text" name="name" id="" value=""></td>
+                    <td><textarea type="text" name="bio" id=""></textarea></td>
+                    <td><input type="text" name="img" id="" value="" onchange="update_img(this)"></td>
+                    <td><button class="delete" onclick="delete_tr(this)">X</button></td>
+                    </tr>`
+                document.querySelector(`#${table_name}`).innerHTML += row
+            } else if (table_name == 'equipments') {
+                row = `<tr>
+                    <td style="color:white;cursor:grabbing;" class="drag-icon">☰</td>
+                        <td><img src=""></td>
+                        <td><input type="text" name="name" id="" value=""></td>
+                        <td><textarea type="text" name="bio" id=""></textarea></td>
+                    <td><input type="text" name="img" id="" value="" onchange="update_img(this)"></td>
+                    <td><button class="delete" onclick="delete_tr(this)">X</button></td>
+                </tr>`
+
+                document.querySelector(`#${table_name}`).innerHTML += row
+            } else if (table_name == 'contacts') {
+                row = `<tr>
+                    <td style="color:white;cursor:grabbing;" class="drag-icon">☰</td>
+                    <td><img src=""></td>
+                    <td><input type="text" name="lable" id="" value=""></td>
+                    <td><input type="text" name="name" id="" value=""></td>
+                    <td><input type="text" name="link" id="" value=""></td>
+                    <td><input type="text" name="img" id="" value="" onchange="update_img(this)"></td>
+                    <td><button class="delete" onclick="delete_tr(this)">X</button></td>
+                </tr>`
+
+                document.querySelector(`#${table_name}`).innerHTML += row
+            }
+        }
+
+        function update_img(elem) {
+            elem.parentNode.parentNode.querySelector('img').src = elem.value
+        }
+        function delete_tr(elem) {
+            elem.closest('tr').remove();
+        }
+
+
+
+
+        document.querySelectorAll('tbody').forEach(name => {
+            console.log(name.id)
+        })
+
+
+        //         document.querySelectorAll('tbody').forEach(name=>{
+        //     name.querySelectorAll('tr').forEach(tr =>{
+        //         tr.querySelectorAll('td').forEach(td => {
+        //             td.querySelectorAll('input , textarea').forEach(input => {
+        //                 if (input.tagName.toLowerCase() === "textarea") {
+        //                     console.log(input.name ,':', input.innerHTML)
+        //                 }else if (input.tagName.toLowerCase() === "input") {
+        //                     console.log(input.name ,':', input.value)
+        //                 }
+
+        // console.log('-----------------------------------------------------------------------')
+
+        //             })
+        //         })
+        //     })
+        //     console.log(name.id)
+        // })
+
+        // let finalData = {};
+
+        function get_tables_data_as_json() {
+            let finalData = {};
+            document.querySelectorAll('tbody').forEach(tbody => {
+                let tableId = tbody.id;
+                finalData[tableId] = [];
+
+                tbody.querySelectorAll('tr').forEach(tr => {
+                    let rowData = {};
+                    tr.querySelectorAll('input, textarea').forEach(el => {
+                        let key = el.name || "unnamed"; // fallback في حالة مفيش name
+                        let value = (el.tagName.toLowerCase() === "textarea") ? el.value : el.value;
+                        rowData[key] = value;
+                    });
+                    finalData[tableId].push(rowData);
+                });
+            });
+            return finalData
+        }
+
+      
+
+
+        function save_data() {
+            saveDataAsText(get_tables_data_as_json())
+            // updateData('67fc66498960c979a5848151', get_tables_data_as_json());
+        }
+
+
+
+
+        // // Function to fetch data from JSONBin
+        // async function fetchData(binId) {
+        //     const response = await fetch(`https://api.jsonbin.io/v3/b/${binId}`, {
+        //         method: 'GET',
+        //         headers: {
+        //             'X-Master-Key': '$2a$10$Jbc2eafOYQ2RWTqduImM.urrI7FwRcaUQtC.GMhjuAESVHCBgHrEq', // Use your master key if private
+        //         }
+        //     });
+
+        //     if (response.ok) {
+        //         const data = await response.json();
+        //         return data.record;
+        //     } else {
+        //         console.error('Failed to fetch data:', response.statusText);
+        //     }
+        // }
+
+        // async function updateData(binId, data) {
+        //     const response = await fetch(`https://api.jsonbin.io/v3/b/${binId}`, {
+        //         method: 'PUT',
+        //         headers: {
+        //             'X-Master-Key': '$2a$10$Jbc2eafOYQ2RWTqduImM.urrI7FwRcaUQtC.GMhjuAESVHCBgHrEq', // Your master key
+        //             'Content-Type': 'application/json'
+        //         },
+        //         body: JSON.stringify(data) // Your updated JSON data
+        //     });
+
+        //     if (response.ok) {
+        //         const updatedData = await response.json();
+        //         console.log('Updated Data:', updatedData);
+        //         return updatedData;
+        //     } else {
+        //         console.error('Failed to update data:', response.statusText);
+        //     }
+        // }
+
+        // // Call the function with your bin ID
+
+        // fetchData('67fc66498960c979a5848151').then(data => {
+        //     build_forms(data)
+        // });
+
+        loadData()
+
+        new Sortable(document.getElementById('skills'), {
+            animation: 150,
+            handle: '.drag-icon',
+            onEnd: function (evt) {
+            }
+        });
+        new Sortable(document.getElementById('projects'), {
+            animation: 150,
+            handle: '.drag-icon',
+            onEnd: function (evt) {
+            }
+        });
+        new Sortable(document.getElementById('equipments'), {
+            animation: 150,
+            handle: '.drag-icon',
+            onEnd: function (evt) {
+            }
+        });
+        new Sortable(document.getElementById('contacts'), {
+            animation: 150,
+            handle: '.drag-icon',
+            onEnd: function (evt) {
+            }
+        });
+
+
+    </script>
+</body>
+
+</html>
