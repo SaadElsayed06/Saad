@@ -126,7 +126,7 @@
 
         <div class="profile_data">
             <img id="profile_img"
-                src="https://lh3.googleusercontent.com/pw/AP1GczMRm48XPxod6kDr3sqbVC-Sfmx7gpWZT182MP9NsDwfnHHGqWBRU-6ZqrCuJZFwnhSovpoc7dHEc21oy-MaPklxRQlzT_ZEDh7-WXpSZSaBCGuh2ZZj=s150-p-k"
+                src=""
                 alt="" srcset="">
             <h3>500 x 500</h3>
 
@@ -304,6 +304,7 @@
         function build_forms(data) {
 
             document.querySelector('#profile_img_input').value = data.profile[0].img
+            document.querySelector('#profile_img').src = data.profile[0].img
        
                 document.querySelector('#slogan').value =  data.profile[0].slogan
                  document.querySelector('#about').value =  data.profile[0].about
