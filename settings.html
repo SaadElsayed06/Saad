@@ -82,12 +82,63 @@
             font-size: 24px;
             margin: 50px;
         }
-        .drag-icon{}
+
+        .drag-icon {}
+
+        .container {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .profile_data {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            border: 1px solid white;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 10px;
+        }
+
+        .profile_data img {
+            border-radius: 50%;
+            width: 100px;
+        }
+
+        .profile_data textarea {
+            margin-top: 10px;
+            height: 50%;
+        }
+
+        .line {
+            border: 1px dashed #ffffff73;
+            width: 60%;
+            height: 0px;
+            margin: 20px;
+        }
     </style>
 </head>
 
 <body>
-<h1>🤵🏻 Visitors : <span id="visitors_count"></span></h1>
+    <h1>🤵🏻 Visitors : <span id="visitors_count"></span></h1>
+    <div class="container">
+
+        <div class="profile_data">
+            <img id="profile_img"
+                src="https://lh3.googleusercontent.com/pw/AP1GczMRm48XPxod6kDr3sqbVC-Sfmx7gpWZT182MP9NsDwfnHHGqWBRU-6ZqrCuJZFwnhSovpoc7dHEc21oy-MaPklxRQlzT_ZEDh7-WXpSZSaBCGuh2ZZj=s150-p-k"
+                alt="" srcset="">
+            <h3>500 x 500</h3>
+
+            <input type="text" id="profile_img_input"
+                onchange="document.querySelector('#profile_img').src = this.value">
+        </div>
+        <div class="profile_data">
+
+            <textarea id="slogan"></textarea>
+            <textarea id="about"></textarea>
+        </div>
+    </div>
     <table>
         <!-- <thead>
             <tr>
@@ -110,6 +161,7 @@
         </tbody>
     </table>
     <button class="add_item" onclick="add_item('skills')">+</button>
+    <div class="line"></div>
     <table>
         <!-- <thead>
             <tr>
@@ -132,6 +184,7 @@
         </tbody>
     </table>
     <button class="add_item" onclick="add_item('projects')">+</button>
+
     <table>
         <!-- <thead>
             <tr>
@@ -154,6 +207,7 @@
         </tbody>
     </table>
     <button class="add_item" onclick="add_item('equipments')">+</button>
+    <div class="line"></div>
     <table>
         <!-- <thead>
             <tr>
@@ -196,6 +250,7 @@
         const db = firebase.firestore();
 
 
+
         function loadData() {
             db.collection("saad").doc("default").get()
                 .then(doc => {
@@ -204,7 +259,7 @@
                         const jsonData = JSON.parse(jsonText);
                         console.log("Retrieved JSON:", jsonData);
 
-                       
+
                         build_forms(jsonData);
 
                     } else {
@@ -218,10 +273,10 @@
                 .then(doc => {
                     if (doc.exists) {
                         const number = doc.data().data;
-                       
-document.getElementById('visitors_count').innerText = number
-                       
-                       
+
+                        document.getElementById('visitors_count').innerText = number
+
+
 
                     } else {
                         console.log("No data found.");
@@ -248,6 +303,10 @@ document.getElementById('visitors_count').innerText = number
 
         function build_forms(data) {
 
+            document.querySelector('#profile_img_input').value = data.profile[0].img
+       
+                document.querySelector('#slogan').value =  data.profile[0].slogan
+                 document.querySelector('#about').value =  data.profile[0].about
 
             const skills = data.skills
 
@@ -403,10 +462,25 @@ document.getElementById('visitors_count').innerText = number
                     finalData[tableId].push(rowData);
                 });
             });
+
+            finalData['profile'] = []
+            finalData.profile.push({
+                img: document.querySelector('#profile_img_input').value,
+                slogan: document.querySelector('#slogan').value,
+                about: document.querySelector('#about').value
+            });
+
+
+            console.log(finalData)
+
+
+
+
+
             return finalData
         }
 
-      
+
 
 
         function save_data() {
